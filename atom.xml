@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[tsingfei's blog]]></title>
+  <subtitle><![CDATA[积跬步以至千里]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://tsingfei.github.com/"/>
+  <updated>2014-03-27T02:14:26.922Z</updated>
+  <id>http://tsingfei.github.com/</id>
+  
+  <author>
+    <name><![CDATA[tsingfei]]></name>
+    <email><![CDATA[tsingfei@gmail.com]]></email>
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[第一篇博客]]></title>
+    <link href="http://tsingfei.github.com/2014/03/26/my-new-post/"/>
+    <id>http://tsingfei.github.com/2014/03/26/my-new-post/</id>
+    <published>2014-03-26T10:00:45.000Z</published>
+    <updated>2014-03-26T10:06:33.000Z</updated>
+    <content type="html"><![CDATA[<p>第一篇博客,终于利用hexo,用github托管自己的博客.</p>
+]]></content>
+    
+    
+      <category term="博客" scheme="http://tsingfei.github.com/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+      <category term="文章" scheme="http://tsingfei.github.com/tags/%E6%96%87%E7%AB%A0/"/>
+    
+      <category term="blog" scheme="http://tsingfei.github.com/categories/blog/"/>
+    
+  </entry>
+  
+</feed>
