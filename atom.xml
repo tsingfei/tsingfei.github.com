@@ -4,7 +4,7 @@
   <subtitle><![CDATA[积跬步以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tsingfei.github.com/"/>
-  <updated>2014-03-27T06:13:21.597Z</updated>
+  <updated>2014-04-08T02:43:47.354Z</updated>
   <id>http://tsingfei.github.com/</id>
   
   <author>
@@ -13,6 +13,37 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[代理键和业务键对比]]></title>
+    <link href="http://tsingfei.github.com/2014/04/08/business-key-vs-surrogate-key/"/>
+    <id>http://tsingfei.github.com/2014/04/08/business-key-vs-surrogate-key/</id>
+    <published>2014-04-08T02:05:12.000Z</published>
+    <updated>2014-04-08T02:42:05.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="参考资料:">参考资料:</h3>
+<ol>
+<li><strong>Java Persistence with Hibernate 2rd,CristianBauer</strong> </li>
+<li><a href="http://en.wikipedia.org/wiki/Surrogate_key" target="_blank">surrogate key</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_7f14264a01016im1.html" target="_blank">Business Key 和 Surrogate Key的区别</a></li>
+<li><a href="http://hi.baidu.com/developers/item/d6c2a70eaf63766dd55a1166" target="_blank">代理键 surrogate key</a></li>
+</ol>
+<h3 id="关系数据库primary_key的选择">关系数据库primary key的选择</h3>
+<p>参考资料[1]（中文书名为<code>Hibernate 实战</code>）解决了长久以来困扰我的关系数据库选择主键的问题。</p>
+<p>在设计关系数据库主键时，简单划分有以下两种方法：</p>
+<pre><code>1.使用原业务中的主键作关系表的主键
+2.新建无意义的主键列，原业务的主键作为关系表的一个属性
+</code></pre><p>起一种称为<code>业务键（business key）</code>，这样导致更新主键列非常困难，给业务扩展带来障碍。<br>第二种称为<code>代理键（surrogate key）</code>，对用户没有意义，不呈现给用户，而只用作软件系统内部的数据标识。</p>
+<p>代理键的选择方式也体现了关系数据库设计和业务的解耦，用作关系数据表联系的代理键不妨碍业务的扩展。</p>
+]]></content>
+    
+    
+      <category term="博客" scheme="http://tsingfei.github.com/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+      <category term="关系数据库" scheme="http://tsingfei.github.com/tags/%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="database" scheme="http://tsingfei.github.com/categories/database/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[第一篇博客]]></title>
