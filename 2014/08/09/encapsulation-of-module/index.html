@@ -3,14 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>tsingfei&#39;s blog</title>
+  <title>模块的封装性分析 | tsingfei&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="og:type" content="blog">
-<meta name="og:title">
-<meta name="og:url" content="http://tsingfei.github.com/">
+<meta name="og:title" content="模块的封装性分析">
+<meta name="og:url" content="http://tsingfei.github.com/2014/08/09/encapsulation-of-module/">
 <meta name="og:image">
 <meta name="og:site_name" content="tsingfei's blog">
-<meta name="og:description">
+<meta name="og:description" content="引子
+最近看《Java Application Architecture-Modularity Patterns with Examples Using OSGi-中文译名Java应用架构设计》时，在物理模块的封装设计方面深受启发。市面上很多书都是介绍类的封装、访问性控制、逻辑设计，但是关于物理模块的设计的书并不多见，这本书是这方面的好书，有Bob大叔推荐作序。同时此书推荐的一本老书《Large-">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="tsingfei&#39;s blog" type="application/atom+xml">
@@ -63,9 +64,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-encapsulation-of-module" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-encapsulation-of-module" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/08/09/encapsulation-of-module/" class="article-date">
   <time datetime="2014-08-09T15:50:20.000Z" itemprop="datePublished">8月 9 2014</time>
@@ -82,8 +81,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/08/09/encapsulation-of-module/">模块的封装性分析</a>
+    <h1 class="article-title" itemprop="name">
+      模块的封装性分析
     </h1>
   
 
@@ -280,171 +279,41 @@ namespace Provider
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-interaction-design-books" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/04/09/interaction-design-books/" class="article-date">
-  <time datetime="2014-04-09T01:41:07.000Z" itemprop="datePublished">4月 9 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/interaction design/">interaction design</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/04/09/interaction-design-books/">人机交互设计方面的图书资料</a>
-    </h1>
+    <a href="/2014/04/09/interaction-design-books/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">人机交互设计方面的图书资料</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>由于以前编程主要侧重功能实现，对交互设计方面的东西了解非常少，所以最近恶补一下交互设计方面的常识。整理了一些这方面的书籍。</p>
-<ol>
-<li><strong>Designing Interface</strong>-<em>Patterns for Effective Interaction Design</em></li>
-<li><strong>Web Anatomy</strong>-<em>Interaction Design Frameworks thatWork</em></li>
-<li><strong>Web Navigation Design</strong></li>
-<li><strong>Designing the Moment</strong>-<em>Web Interface Design Concepts in action</em></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-    
-      <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/书单/">书单</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/交互设计/">交互设计</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博客/">博客</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
 
-  
-    <article id="post-business-key-vs-surrogate-key" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/04/08/business-key-vs-surrogate-key/" class="article-date">
-  <time datetime="2014-04-08T02:05:12.000Z" itemprop="datePublished">4月 8 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/database/">database</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/04/08/business-key-vs-surrogate-key/">代理键和业务键对比</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="参考资料:">参考资料:</h2>
-<ol>
-<li><strong>Java Persistence with Hibernate 2rd,CristianBauer</strong> </li>
-<li><a href="http://en.wikipedia.org/wiki/Surrogate_key" target="_blank">surrogate key</a></li>
-<li><a href="http://blog.sina.com.cn/s/blog_7f14264a01016im1.html" target="_blank">Business Key 和 Surrogate Key的区别</a></li>
-<li><a href="http://hi.baidu.com/developers/item/d6c2a70eaf63766dd55a1166" target="_blank">代理键 surrogate key</a></li>
-</ol>
-<h2 id="关系数据库primary_key的选择">关系数据库primary key的选择</h2>
-<p>参考资料[1]（中文书名为<code>Hibernate 实战</code>）解决了长久以来困扰我的关系数据库选择主键的问题。</p>
-<p>在设计关系数据库主键时，简单划分有以下两种方法：</p>
-<pre><code>1.使用原业务中的主键作关系表的主键
-2.新建无意义的主键列，原业务的主键作为关系表的一个属性
-</code></pre><p>起一种称为<code>业务键（business key）</code>，这样导致更新主键列非常困难，给业务扩展带来障碍。<br>第二种称为<code>代理键（surrogate key）</code>，对用户没有意义，不呈现给用户，而只用作软件系统内部的数据标识。</p>
-<p>代理键的选择方式也体现了关系数据库设计和业务的解耦，用作关系数据表联系的代理键不妨碍业务的扩展。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-    
-      <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+<section id="comments">
 
 
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博客/">博客</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-my-new-post" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/03/26/my-new-post/" class="article-date">
-  <time datetime="2014-03-26T10:00:45.000Z" itemprop="datePublished">3月 26 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/blog/">blog</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/03/26/my-new-post/">第一篇博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第一篇博客,终于利用hexo,用github托管自己的博客.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-    
-      <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+  <!-- Duoshuo Comment BEGIN -->
+  <div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"tsingfei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- Duoshuo Comment END -->
 
 
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博客/">博客</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生活/">生活</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-  
+</section>
 </section>
         
           <aside id="sidebar">
