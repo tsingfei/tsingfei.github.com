@@ -4,7 +4,7 @@
   <subtitle><![CDATA[积跬步以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tsingfei.github.com/"/>
-  <updated>2014-08-09T16:03:23.705Z</updated>
+  <updated>2015-05-26T08:17:45.751Z</updated>
   <id>http://tsingfei.github.com/</id>
   
   <author>
@@ -13,6 +13,59 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[MySql添加新用户设置远程IP访问]]></title>
+    <link href="http://tsingfei.github.com/2015/05/26/mysql-adduser-grantipconnect/"/>
+    <id>http://tsingfei.github.com/2015/05/26/mysql-adduser-grantipconnect/</id>
+    <published>2015-05-26T07:54:23.000Z</published>
+    <updated>2015-05-26T08:16:55.000Z</updated>
+    <content type="html"><![CDATA[<p>MySQL默认root账户可通过localhost和127.0.0.1进行访问，root账户其他IP无法访问。在mysql.user表中有用户的授权信息。<br>可用以下命令授权其他IP进行访问。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="operator"><span class="keyword">GRANT</span> <span class="keyword">all</span> <span class="keyword">privileges</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'root'</span>@<span class="string">'%'</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">'password'</span>;</span>
+</pre></td></tr></table></figure>
+
+<p>如果不想让root被外界访问，那么需要创建一个用户，并授权</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="operator"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> mysql.<span class="keyword">user</span>(HOST,<span class="keyword">USER</span>,PASSWORD) <span class="keyword">values</span> (<span class="string">'希望能访问的客户端IP'</span>,<span class="string">'user'</span>,password(<span class="string">'pass'</span>));</span>
+</pre></td></tr></table></figure>
+
+<p>以上命令会出现错误<code>ERROR 1364 Field &#39;ssl_cipher&#39; doesn&#39;t have a default value</code>，解决步骤如下：</p>
+<ol>
+<li>使用以下命令增加用户</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="operator"><span class="keyword">GRANT</span> USEAGE <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'localhost'</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">'password'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;</span>
+</pre></td></tr></table></figure>
+
+<p>‘username’为要授权的用户名，比如clientuser,<br>‘password’为clientuser的密码,<br>‘localhost’可改为%，表示所有其他IP均可登录.</p>
+<ol>
+<li>然后对所建的用户进行授权：</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="operator"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span>, <span class="keyword">INSERT</span>, <span class="keyword">UPDATE</span>, <span class="keyword">DELETE</span>, <span class="keyword">CREATE</span>, <span class="keyword">DROP</span> <span class="keyword">ON</span> tablename.* <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'localhost'</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">'password'</span>;</span>
+</pre></td></tr></table></figure>
+
+<p>语句中的权限可根据实际进行确定</p>
+<ol>
+<li>生效授权，创建完毕</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>FLUSH PRIVILIEGES
+</pre></td></tr></table></figure>
+
+]]></content>
+    
+    
+      <category term="博客" scheme="http://tsingfei.github.com/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+      <category term="数据库" scheme="http://tsingfei.github.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="MySql" scheme="http://tsingfei.github.com/tags/MySql/"/>
+    
+      <category term="database" scheme="http://tsingfei.github.com/categories/database/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[模块的封装性分析]]></title>
@@ -239,7 +292,7 @@ namespace Provider
     <link href="http://tsingfei.github.com/2014/04/08/business-key-vs-surrogate-key/"/>
     <id>http://tsingfei.github.com/2014/04/08/business-key-vs-surrogate-key/</id>
     <published>2014-04-08T02:05:12.000Z</published>
-    <updated>2014-08-09T15:59:12.000Z</updated>
+    <updated>2015-05-26T07:56:30.000Z</updated>
     <content type="html"><![CDATA[<h2 id="参考资料:">参考资料:</h2>
 <ol>
 <li><strong>Java Persistence with Hibernate 2rd,CristianBauer</strong> </li>

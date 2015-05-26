@@ -65,6 +65,86 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mysql-adduser-grantipconnect" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/26/mysql-adduser-grantipconnect/" class="article-date">
+  <time datetime="2015-05-26T07:54:23.000Z" itemprop="datePublished">5月 26 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/database/">database</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/26/mysql-adduser-grantipconnect/">MySql添加新用户设置远程IP访问</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>MySQL默认root账户可通过localhost和127.0.0.1进行访问，root账户其他IP无法访问。在mysql.user表中有用户的授权信息。<br>可用以下命令授权其他IP进行访问。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="operator"><span class="keyword">GRANT</span> <span class="keyword">all</span> <span class="keyword">privileges</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'root'</span>@<span class="string">'%'</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">'password'</span>;</span>
+</pre></td></tr></table></figure>
+
+<p>如果不想让root被外界访问，那么需要创建一个用户，并授权</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="operator"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> mysql.<span class="keyword">user</span>(HOST,<span class="keyword">USER</span>,PASSWORD) <span class="keyword">values</span> (<span class="string">'希望能访问的客户端IP'</span>,<span class="string">'user'</span>,password(<span class="string">'pass'</span>));</span>
+</pre></td></tr></table></figure>
+
+<p>以上命令会出现错误<code>ERROR 1364 Field &#39;ssl_cipher&#39; doesn&#39;t have a default value</code>，解决步骤如下：</p>
+<ol>
+<li>使用以下命令增加用户</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="operator"><span class="keyword">GRANT</span> USEAGE <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'localhost'</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">'password'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;</span>
+</pre></td></tr></table></figure>
+
+<p>‘username’为要授权的用户名，比如clientuser,<br>‘password’为clientuser的密码,<br>‘localhost’可改为%，表示所有其他IP均可登录.</p>
+<ol>
+<li>然后对所建的用户进行授权：</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="operator"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span>, <span class="keyword">INSERT</span>, <span class="keyword">UPDATE</span>, <span class="keyword">DELETE</span>, <span class="keyword">CREATE</span>, <span class="keyword">DROP</span> <span class="keyword">ON</span> tablename.* <span class="keyword">TO</span> <span class="string">'username'</span>@<span class="string">'localhost'</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">'password'</span>;</span>
+</pre></td></tr></table></figure>
+
+<p>语句中的权限可根据实际进行确定</p>
+<ol>
+<li>生效授权，创建完毕</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>FLUSH PRIVILIEGES
+</pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+    
+      <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySql/">MySql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博客/">博客</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-encapsulation-of-module" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/08/09/encapsulation-of-module/" class="article-date">
@@ -453,7 +533,7 @@ namespace Provider
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/interaction design/">interaction design</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/module/">module</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/interaction design/">interaction design</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/module/">module</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -462,7 +542,7 @@ namespace Provider
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/书单/">书单</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互设计/">交互设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/博客/">博客</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构设计/">架构设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySql/">MySql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/书单/">书单</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互设计/">交互设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/博客/">博客</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构设计/">架构设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -471,7 +551,7 @@ namespace Provider
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/书单/" style="font-size: 10.00px;">书单</a><a href="/tags/交互设计/" style="font-size: 10.00px;">交互设计</a><a href="/tags/博客/" style="font-size: 20.00px;">博客</a><a href="/tags/数据库/" style="font-size: 10.00px;">数据库</a><a href="/tags/架构设计/" style="font-size: 10.00px;">架构设计</a><a href="/tags/模块化/" style="font-size: 10.00px;">模块化</a><a href="/tags/生活/" style="font-size: 10.00px;">生活</a><a href="/tags/读书笔记/" style="font-size: 10.00px;">读书笔记</a>
+      <a href="/tags/MySql/" style="font-size: 10.00px;">MySql</a><a href="/tags/书单/" style="font-size: 10.00px;">书单</a><a href="/tags/交互设计/" style="font-size: 10.00px;">交互设计</a><a href="/tags/博客/" style="font-size: 20.00px;">博客</a><a href="/tags/数据库/" style="font-size: 15.00px;">数据库</a><a href="/tags/架构设计/" style="font-size: 10.00px;">架构设计</a><a href="/tags/模块化/" style="font-size: 10.00px;">模块化</a><a href="/tags/生活/" style="font-size: 10.00px;">生活</a><a href="/tags/读书笔记/" style="font-size: 10.00px;">读书笔记</a>
     </div>
   </div>
 
@@ -480,7 +560,7 @@ namespace Provider
   <div class="widget-wrap">
     <h3 class="widget-title">存档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08">八月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">四月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">三月 2014</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05">五月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08">八月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">四月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">三月 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -490,6 +570,10 @@ namespace Provider
     <h3 class="widget-title">最近</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/05/26/mysql-adduser-grantipconnect/">MySql添加新用户设置远程IP访问</a>
+          </li>
         
           <li>
             <a href="/2014/08/09/encapsulation-of-module/">模块的封装性分析</a>
@@ -519,7 +603,7 @@ namespace Provider
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2014 tsingfei<br>
+      &copy; 2015 tsingfei<br>
       Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
     </div>
   </div>

@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tsingfei.github.com/2015/05/26/mysql-adduser-grantipconnect/</loc>
+    <lastmod>2015-05-26T07:54:23.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://tsingfei.github.com/2014/04/08/business-key-vs-surrogate-key/</loc>
+    <lastmod>2014-04-08T02:05:12.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://tsingfei.github.com/2014/03/26/my-new-post/</loc>
     <lastmod>2014-03-26T10:00:45.000Z</lastmod>
   </url>
@@ -9,11 +19,6 @@
   <url>
     <loc>http://tsingfei.github.com/2014/08/09/encapsulation-of-module/</loc>
     <lastmod>2014-08-09T15:50:20.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://tsingfei.github.com/2014/04/08/business-key-vs-surrogate-key/</loc>
-    <lastmod>2014-04-08T02:05:12.000Z</lastmod>
   </url>
   
   <url>
