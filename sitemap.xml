@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tsingfei.github.com/2015/06/02/gradle%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81jar%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2015-06-02T07:00:47.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://tsingfei.github.com/2015/05/26/mysql-adduser-grantipconnect/</loc>
     <lastmod>2015-05-26T07:54:23.000Z</lastmod>
   </url>

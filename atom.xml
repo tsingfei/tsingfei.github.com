@@ -4,7 +4,7 @@
   <subtitle><![CDATA[积跬步以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tsingfei.github.com/"/>
-  <updated>2015-05-26T08:17:45.751Z</updated>
+  <updated>2015-06-02T07:31:53.973Z</updated>
   <id>http://tsingfei.github.com/</id>
   
   <author>
@@ -15,11 +15,268 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[Gradle下载源码jar问题]]></title>
+    <link href="http://tsingfei.github.com/2015/06/02/gradle%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81jar%E9%97%AE%E9%A2%98/"/>
+    <id>http://tsingfei.github.com/2015/06/02/gradle下载源码jar问题/</id>
+    <published>2015-06-02T07:00:47.000Z</published>
+    <updated>2015-06-02T07:29:26.000Z</updated>
+    <content type="html"><![CDATA[<p>使用Gradle构建和依赖管理工具，build.gradle 如下：</p>
+<figure class="highlight Groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+</pre></td><td class="code"><pre>apply plugin: <span class="string">'war'</span>
+apply plugin: <span class="string">'com.bmuschko.tomcat'</span>
+apply plugin: <span class="string">'java'</span>
+apply plugin: <span class="string">'propdeps'</span>
+apply plugin: <span class="string">'propdeps-maven'</span>
+apply plugin: <span class="string">'propdeps-idea'</span>
+apply plugin: <span class="string">'propdeps-eclipse'</span>
+apply plugin: <span class="string">'eclipse-wtp'</span>
+apply plugin: <span class="string">'idea'</span>
+apply plugin: <span class="string">'rebel'</span>
+apply plugin: <span class="string">'jetty'</span>
+
+println <span class="string">"PROJECT="</span> + project.name
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+
+        maven { url <span class="string">'http://repo.spring.io/plugins-release'</span> }
+    }
+
+    dependencies {
+        classpath <span class="string">'com.bmuschko:gradle-tomcat-plugin:2.0'</span>
+        classpath <span class="string">'org.springframework.build.gradle:propdeps-plugin:0.0.5'</span>
+        classpath <span class="string">'org.zeroturnaround:gradle-jrebel-plugin:1.1.2'</span>
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+
+    maven { url <span class="string">'http://repo.spring.io/plugins-release'</span> }
+}
+
+
+ext {
+    springVersion = <span class="string">"4.0.5.RELEASE"</span>
+    springSecurityVersion = <span class="string">"3.2.5.RELEASE"</span>
+    thymeleafVersion = <span class="string">"2.1.3.RELEASE"</span>
+    tomcatVersion = <span class="string">"7.0.54"</span>
+}
+
+dependencies {
+    compile <span class="string">"org.springframework:spring-core:<span class="variable">$springVersion</span>"</span>
+    compile <span class="string">"org.springframework:spring-webmvc:<span class="variable">$springVersion</span>"</span>
+    compile <span class="string">"org.springframework:spring-orm:<span class="variable">$springVersion</span>"</span>
+    compile <span class="string">"org.springframework:spring-context-support:<span class="variable">$springVersion</span>"</span>
+
+    compile <span class="string">"org.springframework.security:spring-security-web:<span class="variable">$springSecurityVersion</span>"</span>
+    compile <span class="string">"org.springframework.security:spring-security-config:<span class="variable">$springSecurityVersion</span>"</span>
+    compile <span class="string">"org.springframework.security:spring-security-taglibs:<span class="variable">$springSecurityVersion</span>"</span>
+
+    compile <span class="string">"org.thymeleaf:thymeleaf:<span class="variable">$thymeleafVersion</span>"</span>
+    compile <span class="string">"org.thymeleaf:thymeleaf-spring4:<span class="variable">$thymeleafVersion</span>"</span>
+    compile <span class="string">"org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.1.RELEASE"</span>
+    compile <span class="string">"nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.2.7"</span>
+
+    compile <span class="string">"org.hibernate:hibernate-entitymanager:4.3.5.Final"</span>
+    compile <span class="string">"org.hibernate:hibernate-validator:4.3.1.Final"</span>
+    compile <span class="string">"mysql:mysql-connector-java:5.1.30"</span>
+    compile <span class="string">"c3p0:c3p0:0.9.1.2"</span>
+
+    compile <span class="string">"joda-time:joda-time:2.4"</span>
+
+    compile <span class="string">"org.slf4j:slf4j-api:1.7.5"</span>
+    runtime <span class="string">"org.slf4j:slf4j-log4j12:1.7.5"</span>
+
+    testCompile <span class="string">"org.springframework:spring-test:<span class="variable">$springVersion</span>"</span>
+    testCompile <span class="string">"junit:junit:4.11"</span>
+    testCompile <span class="string">"org.mockito:mockito-core:1.9.5"</span>
+    testCompile <span class="string">"org.hamcrest:hamcrest-library:1.3"</span>
+
+    providedCompile <span class="string">"javax.servlet:javax.servlet-api:3.0.1"</span>
+
+    tomcat <span class="string">"org.apache.tomcat.embed:tomcat-embed-core:<span class="variable">$tomcatVersion</span>"</span>,
+            <span class="string">"org.apache.tomcat.embed:tomcat-embed-logging-juli:<span class="variable">$tomcatVersion</span>"</span>
+    tomcat(<span class="string">"org.apache.tomcat.embed:tomcat-embed-jasper:<span class="variable">$tomcatVersion</span>"</span>) {
+        exclude group: <span class="string">'org.eclipse.jdt.core.compiler'</span>, module: <span class="string">'ecj'</span>
+    }
+}
+
+test {
+    testLogging {
+        events <span class="string">'started'</span>, <span class="string">'passed'</span>
+    }
+}
+
+def appName = <span class="string">'webapp'</span>
+def appWarName = appName + <span class="string">'.war'</span>
+def tomcatWebAppsHome = <span class="string">'/usr/local/tomcat7/webapps'</span>
+
+task <span class="function"><span class="title">deployWar</span></span>() {
+    <span class="keyword">do</span>Last {
+        delete tomcatWebAppsHome + <span class="string">"/"</span> + appName
+
+        logger.lifecycle(<span class="string">"Gonna deploy <span class="variable">${appWarName}</span> into <span class="variable">${tomcatWebAppsHome}</span> from <span class="variable">${libsDir.getPath()}</span>"</span>)
+
+        copy {
+            from libsDir
+            into <span class="string">"<span class="variable">${tomcatWebAppsHome}</span>"</span>
+            include <span class="string">"<span class="variable">${appWarName}</span>"</span>
+        }
+    }
+}
+
+rebel {
+    alwaysGenerate = <span class="literal">true</span>
+    showGenerated = <span class="literal">true</span>
+}
+
+war.dependsOn(generateRebel)
+deployWar.dependsOn(war)
+
+task wrapper(<span class="built_in">type</span>: Wrapper) { gradleVersion = <span class="string">'2.1'</span> }
+
+tomcatRunWar.contextPath = <span class="string">''</span>
+</pre></td></tr></table></figure>
+
+<p>发现无法加载jar源码包，google之后发现了问题所在。参考解决方法：<a href="http://stackoverflow.com/questions/10156847/how-to-tell-gradle-to-download-all-the-source-jars" target="_blank">how-to-tell-gradle-to-download-all-the-source-jars</a></p>
+<p><strong>原因</strong>：当在build.gradle中使用了mavenLocal()后，对于本地maven repo中已经存在的不包含源码和javadocs的jar包，gradle不会再去下载源码包。即使在build.gradle中配置eclipse.classpath.downloadJavadoc或者eclipse.classpath.downloadSources也不行。</p>
+<p><strong>解决方法</strong>：删除<code>repositories</code>中的<code>mavenLocal()</code>，或者将其放在仓库列表最后。或者<a href="http://stackoverflow.com/questions/5780758/maven-always-download-sources-and-javadocs" target="_blank">设置maven始终下载源码包</a>，清空本地仓库(<code>(~/.m2/repository</code>)。</p>
+]]></content>
+    
+    
+      <category term="构建工具, 项目管理" scheme="http://tsingfei.github.com/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7,%20%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/"/>
+    
+      <category term="BuildTool" scheme="http://tsingfei.github.com/categories/BuildTool/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[MySql添加新用户设置远程IP访问]]></title>
     <link href="http://tsingfei.github.com/2015/05/26/mysql-adduser-grantipconnect/"/>
     <id>http://tsingfei.github.com/2015/05/26/mysql-adduser-grantipconnect/</id>
     <published>2015-05-26T07:54:23.000Z</published>
-    <updated>2015-05-26T08:16:55.000Z</updated>
+    <updated>2015-06-02T07:01:21.000Z</updated>
     <content type="html"><![CDATA[<p>MySQL默认root账户可通过localhost和127.0.0.1进行访问，root账户其他IP无法访问。在mysql.user表中有用户的授权信息。<br>可用以下命令授权其他IP进行访问。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre><span class="operator"><span class="keyword">GRANT</span> <span class="keyword">all</span> <span class="keyword">privileges</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'root'</span>@<span class="string">'%'</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">'password'</span>;</span>
