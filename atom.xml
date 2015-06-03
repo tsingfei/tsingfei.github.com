@@ -4,7 +4,7 @@
   <subtitle><![CDATA[积跬步以至千里]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://tsingfei.github.com/"/>
-  <updated>2015-06-02T07:36:06.095Z</updated>
+  <updated>2015-06-03T06:36:34.691Z</updated>
   <id>http://tsingfei.github.com/</id>
   
   <author>
@@ -13,6 +13,114 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[C#中xml反序列化中未知元素的控制]]></title>
+    <link href="http://tsingfei.github.com/2015/06/03/c#%E4%B8%ADxml%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%AD%E6%9C%AA%E7%9F%A5%E5%85%83%E7%B4%A0%E7%9A%84%E6%8E%A7%E5%88%B6/"/>
+    <id>http://tsingfei.github.com/2015/06/03/c#中xml反序列化中未知元素的控制/</id>
+    <published>2015-06-03T03:34:16.000Z</published>
+    <updated>2015-06-03T06:36:21.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>问题场景</strong>：C#程序中利用<code>XmlSerializer</code>将对象序列化存储到xml文件中，一段时间以后，该对象的类发生变化，序列化的属性有所更改，为保证兼容旧的xml文件，继续能从旧的xml文件中反序列化构建新的对象，需要在xml反序列化时进行控制。</p>
+<p>经过查找各种方法，发现XmlSerializer类中有遇到未知Attribute、Element或者Node的事件：</p>
+<figure class="highlight C#"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="keyword">public</span> <span class="keyword">event</span> XmlAttributeEventHandler UnknownAttribute;
+<span class="keyword">public</span> <span class="keyword">event</span> XmlElementEventHandler UnknownElement;
+<span class="keyword">public</span> <span class="keyword">event</span> XmlNodeEventHandler UnknownNode;
+</pre></td></tr></table></figure>
+
+<p>在反序列化过程中，遇到未知的Element触发相应事件，在对应的事件处理函数里可以完成对象新旧属性的转换。具体例子如下。</p>
+<p>旧的已经序列化的xml文件为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="tag">&lt;<span class="title">Group</span> <span class="attribute">xmlns:xsi</span>=<span class="value">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attribute">xmlns:xsd</span>=<span class="value">"http://www.w3.org/2001/XMLSchema"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">GroupName</span>&gt;</span>MyGroup<span class="tag">&lt;/<span class="title">GroupName</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">GroupSize</span>&gt;</span>Large<span class="tag">&lt;/<span class="title">GroupSize</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">GroupNumber</span>&gt;</span>444<span class="tag">&lt;/<span class="title">GroupNumber</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">GroupBase</span>&gt;</span>West<span class="tag">&lt;/<span class="title">GroupBase</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">Group</span>&gt;</span>
+</pre></td></tr></table></figure>
+
+<p>新的类为：</p>
+<figure class="highlight C#"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="keyword">public</span> <span class="keyword">class</span> Group{
+  <span class="keyword">public</span> <span class="keyword">string</span> GroupName;
+}
+</pre></td></tr></table></figure>
+
+<p>反序列化代码为：</p>
+<figure class="highlight C#"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="code"><pre>
+<span class="keyword">public</span> <span class="keyword">class</span> Test {
+  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>() {
+    Test t = <span class="keyword">new</span> Test();
+    <span class="comment">// 反序列化包含未知元素的文件.</span>
+    t.DeserializeObject(<span class="string">"UnknownElements.xml"</span>);
+  }
+  <span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Serializer_UnknownElement</span>(<span class="keyword">object</span> sender, XmlElementEventArgs e) {
+    Console.WriteLine(<span class="string">"Unknown Element"</span>);
+    Console.WriteLine(<span class="string">"\t"</span> + e.Element.Name + <span class="string">" "</span> + e.Element.InnerXml);
+    Console.WriteLine(<span class="string">"\t LineNumber: "</span> + e.LineNumber);
+    Console.WriteLine(<span class="string">"\t LinePosition: "</span> + e.LinePosition);
+    Group x  = (Group) e.ObjectBeingDeserialized;
+    Console.WriteLine (x.GroupName);
+    Console.WriteLine (sender.ToString());
+  }
+  <span class="keyword">private</span> <span class="keyword">void</span> <span class="title">DeserializeObject</span>(<span class="keyword">string</span> filename) {
+    XmlSerializer ser = <span class="keyword">new</span> XmlSerializer(<span class="keyword">typeof</span>(Group));
+    <span class="comment">// 添加委托处理遇到未知元素引发的事件</span>
+    ser.UnknownElement += <span class="keyword">new</span> XmlElementEventHandler(Serializer_UnknownElement);
+    FileStream fs = <span class="keyword">new</span> FileStream(filename, FileMode.Open);
+    Group g = (Group) ser.Deserialize(fs);
+    fs.Close();
+  }
+}
+</pre></td></tr></table></figure>
+
+<p>在委托处理函数中可完成新旧属性的转换，利用<code>XmlElementEventArgs</code>中的<code>ObjectBeingDeserialized</code>可以获得目标对象的信息，而<code>Element</code>包含未知元素的信息，因此可以完成新旧对象的转换，实现了反序列化过程的部分控制。</p>
+]]></content>
+    
+    
+      <category term="序列化" scheme="http://tsingfei.github.com/tags/%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+    
+      <category term="C#" scheme="http://tsingfei.github.com/tags/C#/"/>
+    
+      <category term="program language" scheme="http://tsingfei.github.com/categories/program%20language/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Gradle下载jar包源码问题]]></title>
